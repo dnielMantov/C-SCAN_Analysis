@@ -58,11 +58,12 @@ public class SSTF {
 	}
 
 	private void formatReturn(int seekOperationsCount, int[] seekSequence) {
-		System.out.println("Total number of seek operations = " + seekOperationsCount);
+		System.out.println("Total number of seek operations:");
+		System.out.println(seekOperationsCount);
 
 		StringBuilder sequence = new StringBuilder();
 		for (int i = 0; i < seekSequence.length; i++) {
-			if (i == seekSequence.length)
+			if (i == seekSequence.length - 1)
 				sequence.append(seekSequence[i]);
 			else {
 				sequence.append(seekSequence[i]);
@@ -72,5 +73,5 @@ public class SSTF {
 		System.out.println("Seek Sequence:");
 		System.out.println(sequence);
 	}
-	
+
 }
