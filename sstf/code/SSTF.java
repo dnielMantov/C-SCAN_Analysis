@@ -7,13 +7,44 @@ class node {
 
 public class SSTF {
 
-	public static void calculateDistance(int[] request, int head, node[] nodes) {
+	public void run(int[] request, int head) {
+		if (request.length == 0)
+			return;
+			
+		node[] nodes = new node[request.length]; 
+		
+		for (int i = 0; i < nodes.length; i++) 
+            nodes[i] = new node();
+		
+		int seekOperationsCount = 0; 
+		
+		int[] seekSequence = new int[request.length + 1];
+
+		for (int i = 0; i < request.length; i++) {
+			
+			seekSequence[i] = head;
+				
+			int index = this.findMinDistanceToHead(request, head, nodes);
+			
+			nodes[index].accessed = true;
+			
+			seekOperationsCount += nodes[index].distanceToHead; 
+			
+			head = request[index]; 
+		}
+		
+		seekSequence[seekSequence.length - 1] = head;
+
+		formatReturn(seekOperationsCount, seekSequence);
+	}
+
+	private void calculateDistance(int[] request, int head, node[] nodes) {
 		for (int i = 0; i < request.length; i++)
 			nodes[i].distanceToHead = Math.abs(request[i] - head);
 	}
 
-	public static int findMinDistanceToHead(int[] request, int head, node[] nodes) {
-		calculateDistance(request, head, nodes);
+	private int findMinDistanceToHead(int[] request, int head, node[] nodes) {
+		this.calculateDistance(request, head, nodes);
 
 		int index = -1, minimum = Integer.MAX_VALUE;
 
@@ -26,46 +57,20 @@ public class SSTF {
 		return index;
 	}
 
-	public static void shortestSeekTimeFirst(int[] request, int head) {
-		if (request.length == 0)
-			return;
-			
-		node[] nodes = new node[request.length]; 
-		
-		for (int i = 0; i < nodes.length; i++) 
-            nodes[i] = new node();
-		
-		int seek_operations_count = 0; 
-		
-		int[] seek_sequence = new int[request.length + 1];
+	private void formatReturn(int seekOperationsCount, int[] seekSequence) {
+		System.out.println("Total number of seek operations = " + seekOperationsCount);
 
-		for (int i = 0; i < request.length; i++) {
-			
-			seek_sequence[i] = head;
-				
-			int index = findMinDistanceToHead(request, head, nodes);
-			
-			nodes[index].accessed = true;
-			
-			seek_operations_count += nodes[index].distanceToHead; 
-			
-			head = request[index]; 
+		StringBuilder sequence = new StringBuilder();
+		for (int i = 0; i < seekSequence.length; i++) {
+			if (i == seekSequence.length)
+				sequence.append(seekSequence[i]);
+			else {
+				sequence.append(seekSequence[i]);
+				sequence.append(" -> ");
+			}
 		}
-		
-		seek_sequence[seek_sequence.length - 1] = head; 
-		
-		System.out.println("Total number of seek operations = " + seek_operations_count);
-													
-		System.out.println("Seek Sequence is");
-		
-		for (int i = 0; i < seek_sequence.length; i++) 
-			System.out.println(seek_sequence[i]);
+		System.out.println("Seek Sequence:");
+		System.out.println(sequence);
 	}
-
-	public static void main(String[] args) {
-		// request array
-		int[] request = {105, 142, 80, 127, 70, 115, 166, 101}; 
-		int head = 113;
-		shortestSeekTimeFirst(request, head);
-	}
+	
 }
