@@ -6,4 +6,4 @@ Clique [aqui](https://docs.google.com/document/d/1yB46UXTxB3JjAze1ii0SP1VVJovRRW
 
 # Implementação
 
-Todo o código implementado foi baseado nos algoritmos implementados no site GeeksforGeeks, com refatorações para corrigir code smells, provendo melhor entendimento do código.
+Os algoritmos foram implementados na linguagem Java, seguindo conceitos de orientação a objetos e utilizando bibliotecas de estruturas de dados da linguagem como `java.util.ArrayList`.
