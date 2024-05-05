@@ -4,93 +4,52 @@ import java.util.*;
 
 public class CSCAN {
 
-	static int size = 8;
-	static int disk_size = 200;
+	public void run(ArrayList<Integer> request, int head) {
+		int seekOperationsCount = 0;
 
-	public void run(int arr[], int head) {
-		int seek_count = 0;
-		int distance, cur_track;
+		ArrayList<Integer> seekSequence = new ArrayList<>();
+		
+		int lastSector = head;
+		for (int i = lastSector + 1; i < 200; i++) {
+			if (i == 199) {
+				seekSequence.add(i);
+				seekOperationsCount += Math.abs(lastSector - i);
+				lastSector = i;
+				i = 0;
+				seekOperationsCount += Math.abs(lastSector - i);
+				seekSequence.add(i);
+				lastSector = i;
+			}
+			
+			if (request.contains(i) && !seekSequence.contains(i)) {
+				seekSequence.add(i);
+				request.remove((Integer) i);
+				seekOperationsCount += Math.abs(lastSector - i);
+				lastSector = i;
+			}
 
-		Vector<Integer> left = new Vector<Integer>();
-		Vector<Integer> right = new Vector<Integer>();
-		Vector<Integer> seek_sequence
-			= new Vector<Integer>();
-
-		// Appending end values which has
-		// to be visited before reversing
-		// the direction
-		left.add(0);
-		right.add(disk_size - 1);
-
-		// Tracks on the left of the
-		// head will be serviced when
-		// once the head comes back
-		// to the beginning (left end).
-		for (int i = 0; i < size; i++) {
-			if (arr[i] < head)
-				left.add(arr[i]);
-			if (arr[i] > head)
-				right.add(arr[i]);
+			if (request.size() == 0)
+				break;
 		}
 
-		// Sorting left and right vectors
-		Collections.sort(left);
-		Collections.sort(right);
+		this.formatReturn(seekOperationsCount, seekSequence);
+	}
 
-		// First service the requests
-		// on the right side of the
-		// head.
-		for (int i = 0; i < right.size(); i++) {
-			cur_track = right.get(i);
+	private void formatReturn(int seekOperationsCount, ArrayList<Integer> seekSequence) {
+		System.out.println("Total number of seek operations:");
+		System.out.println(seekOperationsCount);
 
-			// Appending current track to seek sequence
-			seek_sequence.add(cur_track);
-
-			// Calculate absolute distance
-			distance = Math.abs(cur_track - head);
-
-			// Increase the total count
-			seek_count += distance;
-
-			// Accessed track is now new head
-			head = cur_track;
+		StringBuilder sequence = new StringBuilder();
+		for (int i = 0; i < seekSequence.size(); i++) {
+			if (i == seekSequence.size() - 1)
+				sequence.append(seekSequence.get(i));
+			else {
+				sequence.append(seekSequence.get(i));
+				sequence.append(" -> ");
+			}
 		}
-
-		// Once reached the right end
-		// jump to the beginning.
-		head = 0;
-
-		// adding seek count for head returning from 199 to
-		// 0
-		seek_count += (disk_size - 1);
-
-		// Now service the requests again
-		// which are left.
-		for (int i = 0; i < left.size(); i++) {
-			cur_track = left.get(i);
-
-			// Appending current track to
-			// seek sequence
-			seek_sequence.add(cur_track);
-
-			// Calculate absolute distance
-			distance = Math.abs(cur_track - head);
-
-			// Increase the total count
-			seek_count += distance;
-
-			// Accessed track is now the new head
-			head = cur_track;
-		}
-
-		System.out.println("Total number of seek "
-						+ "operations = " + seek_count);
-
-		System.out.println("Seek Sequence is");
-
-		for (int i = 0; i < seek_sequence.size(); i++) {
-			System.out.println(seek_sequence.get(i));
-		}
+		System.out.println("Seek Sequence:");
+		System.out.println(sequence);
 	}
 
 }
