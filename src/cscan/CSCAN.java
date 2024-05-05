@@ -30,7 +30,7 @@ public class CSCAN {
 				lastSector = i;
 			}
 
-			if (request.size() == 0)
+			if (request.isEmpty())
 				break;
 		}
 

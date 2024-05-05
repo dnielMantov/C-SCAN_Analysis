@@ -23,8 +23,8 @@ public class Utils {
 
     public static ArrayList<Integer> toArrayInteger(int[] request) {
         ArrayList<Integer> arr = new ArrayList<>();
-        for(int i = 0; i < request.length; i++) {
-            arr.add(request[i]);
+        for (int j : request) {
+            arr.add(j);
         }
         return arr;
     }

@@ -1,6 +1,6 @@
 package src.cscan;
 
-import java.util.ArrayList;
+import src.utils.Utils;
 
 public class RunCSCAN {
 
@@ -12,16 +12,8 @@ public class RunCSCAN {
 
         int head = 139;
 
-        cscan.run(toArrayInteger(request), head);
+        cscan.run(Utils.toArrayInteger(request), head);
 
     }
 
-    private static ArrayList<Integer> toArrayInteger(int[] request) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        for(int i = 0; i < request.length; i++) {
-            arr.add(request[i]);
-        }
-        return arr;
-    }
-    
 }
