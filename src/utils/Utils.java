@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Utils {
     
-	public static void formatReturn(int seekOperationsCount, ArrayList<Integer> seekSequence) {
-		System.out.println("Total number of seek operations:");
-		System.out.println(seekOperationsCount);
+	public static void formatReturn(int seekDistance, ArrayList<Integer> seekSequence) {
+		System.out.println("Total distance traveled:");
+		System.out.println(seekDistance);
 
 		StringBuilder sequence = new StringBuilder();
 		for (int i = 0; i < seekSequence.size(); i++) {
