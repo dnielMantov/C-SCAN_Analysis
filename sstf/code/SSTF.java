@@ -1,16 +1,6 @@
 import java.util.ArrayList;
 
-class Sector {
-
-	int value;
-	int distanceToHead;
-	boolean accessed = false;
-
-	public Sector(int value) {
-		this.value = value;
-	}
-
-}
+import utils.Utils;
 
 public class SSTF {
 
@@ -30,7 +20,7 @@ public class SSTF {
 			this.attDistanceToHead(sectors, head);
 		}
 
-		this.formatReturn(seekOperationsCount, seekSequence);
+		Utils.formatReturn(seekOperationsCount, seekSequence);
 	}
 
 	private void attDistanceToHead(ArrayList<Sector> sectors, int head) {
@@ -63,23 +53,6 @@ public class SSTF {
 		for (Integer value : request)
 			nodes.add(new Sector(value));
 		return nodes;
-	}
-
-	private void formatReturn(int seekOperationsCount, ArrayList<Integer> seekSequence) {
-		System.out.println("Total number of seek operations:");
-		System.out.println(seekOperationsCount);
-
-		StringBuilder sequence = new StringBuilder();
-		for (int i = 0; i < seekSequence.size(); i++) {
-			if (i == seekSequence.size() - 1)
-				sequence.append(seekSequence.get(i));
-			else {
-				sequence.append(seekSequence.get(i));
-				sequence.append(" -> ");
-			}
-		}
-		System.out.println("Seek Sequence:");
-		System.out.println(sequence);
 	}
 
 }
