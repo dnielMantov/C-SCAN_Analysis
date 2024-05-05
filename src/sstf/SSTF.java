@@ -1,6 +1,8 @@
+package src.sstf;
+
 import java.util.ArrayList;
 
-import utils.Utils;
+import src.utils.Utils;
 
 public class SSTF {
 

@@ -1,3 +1,5 @@
+package src.sstf;
+
 public class Sector {
 
 	int value;

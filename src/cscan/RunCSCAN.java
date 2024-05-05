@@ -1,4 +1,4 @@
-package cscan.code;
+package src.cscan;
 
 import java.util.ArrayList;
 

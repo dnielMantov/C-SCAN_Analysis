@@ -1,8 +1,8 @@
-package cscan.code;
+package src.cscan;
 
 import java.util.ArrayList;
 
-import utils.Utils;
+import src.utils.Utils;
 
 public class CSCAN {
 
