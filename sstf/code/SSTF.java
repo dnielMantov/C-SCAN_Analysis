@@ -7,12 +7,14 @@ class node {
 
 public class SSTF {
 
-	public static void calculateDistance(int queue[], int head, node[] nodes) {
-		for (int i = 0; i < queue.length; i++)
-			nodes[i].distanceToHead = Math.abs(queue[i] - head);
+	public static void calculateDistance(int[] request, int head, node[] nodes) {
+		for (int i = 0; i < request.length; i++)
+			nodes[i].distanceToHead = Math.abs(request[i] - head);
 	}
 
-	public static int findMinDistanceToHead(node[] nodes) {
+	public static int findMinDistanceToHead(int[] request, int head, node[] nodes) {
+		calculateDistance(request, head, nodes);
+
 		int index = -1, minimum = Integer.MAX_VALUE;
 
 		for (int i = 0; i < nodes.length; i++) {
@@ -24,7 +26,7 @@ public class SSTF {
 		return index;
 	}
 
-	public static void shortestSeekTimeFirst(int request[], int head) {
+	public static void shortestSeekTimeFirst(int[] request, int head) {
 		if (request.length == 0)
 			return;
 			
@@ -40,9 +42,8 @@ public class SSTF {
 		for (int i = 0; i < request.length; i++) {
 			
 			seek_sequence[i] = head;
-			calculateDistance(request, head, nodes);
-			
-			int index = findMinDistanceToHead(nodes);
+				
+			int index = findMinDistanceToHead(request, head, nodes);
 			
 			nodes[index].accessed = true;
 			
@@ -63,7 +64,8 @@ public class SSTF {
 
 	public static void main(String[] args) {
 		// request array
-		int arr[] = {105, 142, 80, 127, 70, 115, 166, 101}; 
-		shortestSeekTimeFirst(arr, 113);
+		int[] request = {105, 142, 80, 127, 70, 115, 166, 101}; 
+		int head = 113;
+		shortestSeekTimeFirst(request, head);
 	}
 }
