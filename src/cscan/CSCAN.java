@@ -7,18 +7,17 @@ import src.utils.Utils;
 public class CSCAN {
 
 	public void run(ArrayList<Integer> request, int head) {
-		int seekOperationsCount = 0;
-
 		ArrayList<Integer> seekSequence = new ArrayList<>();
-		
+		int seekDistance = 0;
+
 		int lastSector = head;
 		for (int i = lastSector + 1; i < 200; i++) {
 			if (i == 199) {
 				seekSequence.add(i);
-				seekOperationsCount += Math.abs(lastSector - i);
+				seekDistance += Math.abs(lastSector - i);
 				lastSector = i;
 				i = 0;
-				seekOperationsCount += Math.abs(lastSector - i);
+				seekDistance += Math.abs(lastSector - i);
 				seekSequence.add(i);
 				lastSector = i;
 			}
@@ -26,7 +25,7 @@ public class CSCAN {
 			if (request.contains(i) && !seekSequence.contains(i)) {
 				seekSequence.add(i);
 				request.remove((Integer) i);
-				seekOperationsCount += Math.abs(lastSector - i);
+				seekDistance += Math.abs(lastSector - i);
 				lastSector = i;
 			}
 
@@ -34,7 +33,7 @@ public class CSCAN {
 				break;
 		}
 
-		Utils.formatReturn(seekOperationsCount, seekSequence);
+		Utils.formatReturn(seekDistance, seekSequence);
 	}
 
 }

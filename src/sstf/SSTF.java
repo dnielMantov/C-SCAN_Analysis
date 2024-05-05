@@ -9,7 +9,7 @@ public class SSTF {
 	public void run(ArrayList<Integer> request, int head) {	
 		ArrayList<Sector> sectors = toSectors(request);
 		ArrayList<Integer> seekSequence = new ArrayList<>();
-		int seekOperationsCount = 0;
+		int seekDistance = 0;
 		
 		this.attDistanceToHead(sectors, head);
 
@@ -17,12 +17,12 @@ public class SSTF {
 			int nearSectorValue = this.getNearSector(sectors);
 			this.setAccessedTrue(sectors, nearSectorValue);
 			seekSequence.add(nearSectorValue);
-			seekOperationsCount += Math.abs(head - nearSectorValue);
+			seekDistance += Math.abs(head - nearSectorValue);
 			head = nearSectorValue;
 			this.attDistanceToHead(sectors, head);
 		}
 
-		Utils.formatReturn(seekOperationsCount, seekSequence);
+		Utils.formatReturn(seekDistance, seekSequence);
 	}
 
 	private void attDistanceToHead(ArrayList<Sector> sectors, int head) {
