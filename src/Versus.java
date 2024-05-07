@@ -21,7 +21,7 @@ public class Versus {
         System.out.println("==== SSTF Algorithm ====");
         sstf.run(arr, head);
         System.out.println("\n==== C-SCAN Algorithm ====");
-        cscan.run(arr, head);
+//        cscan.run(arr, head);
     }
 
 }

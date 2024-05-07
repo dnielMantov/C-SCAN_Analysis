@@ -2,38 +2,41 @@ package src.cscan;
 
 import java.util.ArrayList;
 
-import src.utils.Utils;
-
 public class CSCAN {
 
-	public void run(ArrayList<Integer> request, int head) {
-		ArrayList<Integer> seekSequence = new ArrayList<>();
-		int seekDistance = 0;
+	public void run(int sectorSize, int tracks, int sectorPerTrack, double seekTime, double rotationTime, double transferTime, ArrayList<Integer> requests, int head) {
 
-		int lastSector = head;
-		for (int i = lastSector + 1; i < 200; i++) {
-			if (i == 199) {
-				seekSequence.add(i);
-				seekDistance += Math.abs(lastSector - i);
-				lastSector = i;
+		double totalSeekTime = 0;
+		double totalRotationTime = 0;
+		double totalTransferTime = 0;
+
+		int headTrack = head / sectorPerTrack;
+		for (int i = 0; i < requests.size(); i++) {
+			int sector = requests.get(i);
+			if (head < sector)
+				continue;
+
+			int sectorTrack = sector / sectorPerTrack;
+
+			if (headTrack < sectorTrack) {
+				totalSeekTime += seekTime;
+				head += sectorPerTrack;
+			} else if (headTrack > sectorTrack) {
+				totalSeekTime += seekTime;
+				head -= sectorPerTrack;
+			}
+			headTrack = sectorTrack;
+
+			totalRotationTime += ((double) Math.abs(head - sector) / sectorPerTrack) * rotationTime;
+			head = sector;
+			requests.remove(i);
+
+			if (i == requests.size()) {
 				i = 0;
-				seekDistance += Math.abs(lastSector - i);
-				seekSequence.add(i);
-				lastSector = i;
+				head = head - (headTrack * sectorPerTrack);
 			}
-			
-			if (request.contains(i) && !seekSequence.contains(i)) {
-				seekSequence.add(i);
-				request.remove((Integer) i);
-				seekDistance += Math.abs(lastSector - i);
-				lastSector = i;
-			}
-
-			if (request.isEmpty())
-				break;
 		}
 
-		Utils.formatReturn(seekDistance, seekSequence);
 	}
 
 }
