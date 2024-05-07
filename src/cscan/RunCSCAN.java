@@ -16,10 +16,12 @@ public class RunCSCAN {
         int base                = 0;        // initial number of the range
         int bounds              = 35;       // last number of the range
         int number              = 20;       // number of requests
+        boolean printRequests   = true;     // Print the random requests
 
 
         ArrayList<Integer> requests = Utils.getRandomRequests(base, bounds, number);
-        System.out.println("Requests:\n" + requests);
+        if (printRequests)
+            System.out.println("Requests:\n" + requests);
 
 
         // Select parameters
@@ -30,9 +32,10 @@ public class RunCSCAN {
         double seekTime         = 4;        // R/W head seek time in ms
         double rotationTime     = 2;        // disk rotation time in ms
         int initialSector       = 21;       // initial position of disk arm's head
+        boolean printSectors    = true;     // Print the accessed sectors
 
 
-        double totalTime = cscan.run(sectorSize, tracks, sectorsPerTrack, transferRate, seekTime, rotationTime, initialSector, requests);
+        double totalTime = cscan.run(sectorSize, tracks, sectorsPerTrack, transferRate, seekTime, rotationTime, initialSector, requests, printSectors);
         System.out.println(df.format(totalTime) + " ms");
     }
 

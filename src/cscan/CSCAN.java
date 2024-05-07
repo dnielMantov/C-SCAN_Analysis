@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class CSCAN {
 
-	public double run(int sectorSize, int tracks, int sectorsPerTrack, int transferRate, double seekTime, double rotationTime, int head, ArrayList<Integer> requests) {
+	public double run(int sectorSize, int tracks, int sectorsPerTrack, int transferRate, double seekTime, double rotationTime, int head, ArrayList<Integer> requests, boolean printSectors) {
 		ArrayList<Integer> accessedSectors = new ArrayList<>();
 		double transferTime = (sectorSize * Math.pow(2, 10)) / (transferRate * Math.pow(2, 20));
 
@@ -36,7 +36,8 @@ public class CSCAN {
 				}
 			}
 		}
-		System.out.println("\nAccessed sectors:\n" + accessedSectors);
+		if (printSectors)
+			System.out.println("\nAccessed sectors:\n" + accessedSectors);
 		return totalSeekTime + totalRotationTime + totalTransferTime;
 	}
 
