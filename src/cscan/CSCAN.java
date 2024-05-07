@@ -5,8 +5,9 @@ import java.util.Collections;
 
 public class CSCAN {
 
-	public double run(int sectorSize, int tracks, int sectorsPerTrack, int transferRate, double seekTime, double rotationTime, ArrayList<Integer> requests, int head) {
+	public double run(int sectorSize, int tracks, int sectorsPerTrack, int transferRate, double seekTime, double rotationTime, int head, ArrayList<Integer> requests) {
 		Collections.sort(requests);
+		ArrayList<Integer> accessedSectors = new ArrayList<>();
 		double transferTime = (sectorSize * Math.pow(2, 10)) / (transferRate * Math.pow(2, 20));
 
 		double totalSeekTime = 0;
@@ -16,7 +17,7 @@ public class CSCAN {
 		int oldHeadTrack = head / sectorsPerTrack;
 		while (!requests.isEmpty()) {
 			int headTrack = head / sectorsPerTrack;
-			int nextSector = this.getNextRequestInCurrentTrack(head, sectorsPerTrack, requests);
+			int nextSector = this.getNextRequestInCurrentTrack(head, sectorsPerTrack, requests, accessedSectors);
 
             if (nextSector != -1) {
                 totalRotationTime += this.updateTotalRotationTime(head, nextSector, sectorsPerTrack, rotationTime);
@@ -36,12 +37,14 @@ public class CSCAN {
 				oldHeadTrack = -1;
             }
         }
+		System.out.println("\nAccessed sectors:\n" + accessedSectors);
 		return totalSeekTime + totalRotationTime + totalTransferTime;
 	}
 
-	private int getNextRequestInCurrentTrack(int head, int sectorsPerTrack, ArrayList<Integer> requests) {
+	private int getNextRequestInCurrentTrack(int head, int sectorsPerTrack, ArrayList<Integer> requests, ArrayList<Integer> accessedSectors) {
 		for (Integer request : requests) {
 			if ((request / sectorsPerTrack) == (head / sectorsPerTrack)) {
+				accessedSectors.add(request);
 				requests.remove(request);
 				return request;
 			}
