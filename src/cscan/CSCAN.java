@@ -13,22 +13,27 @@ public class CSCAN {
 		double totalRotationTime = 0;
 		double totalTransferTime = 0;
 
+		int oldHeadTrack = head / sectorsPerTrack;
 		while (!requests.isEmpty()) {
-			 int headTrack = head / sectorsPerTrack;
-			 int nextSector = this.getNextRequestInCurrentTrack(head, sectorsPerTrack, requests);
+			int headTrack = head / sectorsPerTrack;
+			int nextSector = this.getNextRequestInCurrentTrack(head, sectorsPerTrack, requests);
 
             if (nextSector != -1) {
                 totalRotationTime += this.updateTotalRotationTime(head, nextSector, sectorsPerTrack, rotationTime);
                 totalTransferTime += transferTime;
 				head = nextSector;
+                if (oldHeadTrack != headTrack) {
+					totalSeekTime += seekTime;
+					oldHeadTrack = headTrack;
+				}
             }
+
             if (!requests.isEmpty() && headTrack < tracks - 1) {
                 head += sectorsPerTrack;
-                totalSeekTime += seekTime;
             }
             else if (!requests.isEmpty() && headTrack == tracks - 1) {
                 head = head - (headTrack * sectorsPerTrack);
-                totalSeekTime += seekTime * headTrack;
+				oldHeadTrack = -1;
             }
         }
 		return totalSeekTime + totalRotationTime + totalTransferTime;
