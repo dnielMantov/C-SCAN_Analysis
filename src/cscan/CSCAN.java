@@ -27,26 +27,37 @@ public class CSCAN {
 					totalSeekTime += seekTime;
 					oldHeadTrack = headTrack;
 				}
-            }
-
-            if (!requests.isEmpty() && headTrack < tracks - 1) {
-                head += sectorsPerTrack;
-            }
-            else if (!requests.isEmpty() && headTrack == tracks - 1) {
-                head = head - (headTrack * sectorsPerTrack);
-				oldHeadTrack = -1;
-            }
-        }
+			} else {
+				if (!requests.isEmpty() && headTrack < tracks - 1) {
+					head += sectorsPerTrack;
+				}
+				else if (!requests.isEmpty() && headTrack == tracks - 1) {
+					head = head - (headTrack * sectorsPerTrack);
+					oldHeadTrack = -1;
+				}
+			}
+		}
 		System.out.println("\nAccessed sectors:\n" + accessedSectors);
 		return totalSeekTime + totalRotationTime + totalTransferTime;
 	}
 
 	private int getNextRequestInCurrentTrack(int head, int sectorsPerTrack, ArrayList<Integer> requests, ArrayList<Integer> accessedSectors) {
+		ArrayList<Integer> sectorsInCurrentTrack = new ArrayList<>();
 		for (Integer request : requests) {
-			if ((request / sectorsPerTrack) == (head / sectorsPerTrack)) {
-				accessedSectors.add(request);
-				requests.remove(request);
-				return request;
+			if ((request / sectorsPerTrack) == (head / sectorsPerTrack))
+				sectorsInCurrentTrack.add(request);
+		}
+		if (sectorsInCurrentTrack.isEmpty())
+			return  -1;
+
+		sectorsInCurrentTrack.add(head);
+		Collections.sort(sectorsInCurrentTrack);
+		for (int i = 0; i < sectorsInCurrentTrack.size(); i++) {
+			if (sectorsInCurrentTrack.get(i) == head) {
+				Integer nextSector = (i + 1 > sectorsInCurrentTrack.size() - 1) ? sectorsInCurrentTrack.getFirst() : sectorsInCurrentTrack.get(i + 1);
+				accessedSectors.add(nextSector);
+				requests.remove(nextSector);
+				return nextSector;
 			}
 		}
 		return -1;
