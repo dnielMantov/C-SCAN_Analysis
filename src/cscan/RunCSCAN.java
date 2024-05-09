@@ -31,12 +31,14 @@ public class RunCSCAN {
         int transferRate        = 100;      // transfer rate in MB
         double seekTime         = 4;        // R/W head seek time in ms
         double rotationTime     = 2;        // disk rotation time in ms
-        int initialSector       = 21;       // initial position of disk arm's head
+        int initialSector                   // initial position of disk arm's head
+                                = Utils.getRandomInitialSector(0, 35);
         boolean printSectors    = true;     // Print the accessed sectors
 
 
-        double totalTime = cscan.run(sectorSize, tracks, sectorsPerTrack, transferRate, seekTime, rotationTime, initialSector, requests, printSectors);
-        System.out.println(df.format(totalTime) + " ms");
+        double totalTime = cscan.run(sectorSize, tracks, sectorsPerTrack, transferRate,
+                                    seekTime, rotationTime, initialSector, requests, printSectors);
+        System.out.println("Initial head position: " + initialSector + "\n" + df.format(totalTime) + " ms");
     }
 
 }

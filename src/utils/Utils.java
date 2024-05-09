@@ -13,4 +13,9 @@ public class Utils {
 		return requests;
 	}
 
+	public static int getRandomInitialSector(int base, int bounds) {
+		Random random = new Random();
+		return random.nextInt(base, bounds + 1);
+	}
+
 }
