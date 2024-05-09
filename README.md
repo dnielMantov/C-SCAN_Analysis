@@ -18,29 +18,30 @@ Clique [aqui](https://docs.google.com/document/d/1yB46UXTxB3JjAze1ii0SP1VVJovRRW
 O algoritmo foi implementado na linguagem Java, seguindo conceitos de orientação a objetos e utilizando bibliotecas de estruturas de dados da linguagem como `java.util.ArrayList`.
 É utilizado o padrão à direita, buscando os setores realizando um movimento da esquerda para a direita.
 
-Para comparações com entradas lineares, mudanças nas características do disco e mais detalhes a respeito do algoritmo e da implementação, acesse o relatório do projeto.
+Para comparações entre requisições randômicas e lineares e mais detalhes a respeito do funcionamento de um disco e do algoritmo, acesse o relatório do projeto.
 
 # Utilização
 
 Para executar o algoritmo, acesse a classe `./src/cscan/RunCSCAN.java`, modifique os parâmetros do disco e do sorteio randômico de requisições a seu critério e em seguida execute a
 função `main`.
 
-O algoritmo consegue suportar até uma faixa de 14000 setores requisitados ao mesmo tempo. Para testar, modifique o parâmetro `int number` na classe `RunCSCAN` para esse valor
+O algoritmo consegue suportar até uma faixa de 14000 setores requisitados ao mesmo tempo. Para testar, modifique os parâmetros do sorteio aleatório de requisições na classe `RunCSCAN`
 (não recomendado, utilize valores menores).
 
-> Caso a execução fique em loop infinito, muito provavelmente os valores fornecidos como parâmetros não estão corretos ou o usuário quis se aventurar com mais requisições do que permitido.
+> Caso a execução fique em loop infinito, muito provavelmente os valores fornecidos como parâmetros não estão corretos ou o usuário quis se aventurar com mais requisições do que o permitido.
 
 ## Saída formatada
 
-A saída no terminal segue o modelo mostrado abaixo, exibindo as requisições sorteadas, a ordem de acesso a cada setor com base nos parâmetros de disco e o tempo total em milisegundos
-de toda a requisição.
+A saída no terminal segue o modelo mostrado abaixo, exibindo as requisições sorteadas, a ordem de acesso a cada setor com base nos parâmetros de disco, a posição inicial do cabeçote
+e o tempo total em milisegundos de toda a requisição.
 
 ```
 Requests:
-[20, 14, 30, 1, 21, 15, 8, 11, 35, 13, 16, 15, 16, 27, 16, 3, 20, 34, 7, 26]
+[29, 3, 0, 17, 12, 26, 11, 12, 18, 15, 35, 13, 25, 23, 10, 21, 29, 11, 19, 17]
 
 Accessed sectors:
-[21, 13, 14, 15, 15, 16, 16, 16, 20, 20, 34, 35, 26, 27, 30, 7, 8, 11, 1, 3]
-13,1 ms
+[35, 25, 26, 29, 29, 10, 11, 11, 0, 3, 15, 17, 17, 18, 19, 21, 23, 12, 12, 13]
+Initial head position: 33
+12,77 ms
 ```
 
