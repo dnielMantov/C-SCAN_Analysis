@@ -6,7 +6,7 @@ Repositório para versionamento de código utilizado no relatório da disciplina
 - Tamanho do setor
 - Número de trilhas
 - Número de setores por trilhas
-- Tempo de transferência (transfer time)
+- Taxa de transferência
 - Tempo de busca (seek time)
 - Tempo de rotação (rotation time)
 - Setor inicial
