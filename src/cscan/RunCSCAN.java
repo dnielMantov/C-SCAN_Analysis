@@ -16,7 +16,7 @@ public class RunCSCAN {
         int base                = 0;        // initial number of the range
         int bounds              = 35;       // last number of the range
         int number              = 20;       // number of requests
-        boolean printRequests   = true;     // Print the random requests
+        boolean printRequests   = true;     // Print random requests
 
 
         ArrayList<Integer> requests = Utils.getRandomRequests(base, bounds, number);
@@ -25,7 +25,7 @@ public class RunCSCAN {
 
 
         // Select parameters
-        int sectorSize          = 512;      // size of a sector in KB
+        int sectorSize          = 4;        // size of a sector in KB
         int tracks              = 3;        // number of tracks in one disk
         int sectorsPerTrack     = 12;       // number of sectors in one track
         int transferRate        = 100;      // transfer rate in MB
@@ -33,7 +33,7 @@ public class RunCSCAN {
         double rotationTime     = 2;        // disk rotation time in ms
         int initialSector                   // initial position of disk arm's head
                                 = Utils.getRandomInitialSector(0, 35);
-        boolean printSectors    = true;     // Print the accessed sectors
+        boolean printSectors    = true;     // Print accessed sectors
 
 
         double totalTime = cscan.run(sectorSize, tracks, sectorsPerTrack, transferRate,
