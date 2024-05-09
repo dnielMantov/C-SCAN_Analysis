@@ -28,7 +28,7 @@ public class RunCSCAN {
         int sectorSize          = 4;        // size of a sector in KB
         int tracks              = 3;        // number of tracks in one disk
         int sectorsPerTrack     = 12;       // number of sectors in one track
-        int transferRate        = 100;      // transfer rate in MB
+        int transferRate        = 100;      // transfer rate in MB/s
         double seekTime         = 4;        // R/W head seek time in ms
         double rotationTime     = 2;        // disk rotation time in ms
         int initialSector                   // initial position of disk arm's head
