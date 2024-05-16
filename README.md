@@ -45,3 +45,8 @@ Initial head position: 31
 13,95 ms
 ```
 
+# Para os alunos
+
+Este trabalho obteve uma nota 9.0 de 10.0. Podem utilizar o algoritmo e o documento como modelo para seus relatórios, mas, claro, "copia só não faz igual". Uma dica é mudar a linguagem, não usem Java,
+utilizem alguma linguagem de script mais simples como Python. A respeito dos gráficos, fiquem livres para escolher entre uma biblioteca de plotagem de gráfico da sua linguagem favorita ou usar as tabelas
+do Google Sheets como utilizei, são bem customizáveis e fáceis de utilizar.
